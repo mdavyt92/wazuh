@@ -400,13 +400,13 @@ class Agent:
     def load_info_from_db(self, select=None):
         """Gets attributes of existing agent.
         """
-        db_query = WazuhDBQueryAgents(offset=0, limit=None, sort=None, search=None, select=select,
-                                      query="id={}".format(self.id), count=False, get_data=True,
-                                      remove_extra_fields=False)
-        try:
-            data = db_query.run()['items'][0]
-        except IndexError:
-            raise WazuhResourceNotFound(1701)
+        with WazuhDBQueryAgents(offset=0, limit=None, sort=None, search=None, select=select,
+                                query="id={}".format(self.id), count=False, get_data=True,
+                                remove_extra_fields=False) as db_query:
+            try:
+                data = db_query.run()['items'][0]
+            except IndexError:
+                raise WazuhResourceNotFound(1701)
 
         list(map(lambda x: setattr(self, x[0], x[1]), data.items()))
 
@@ -464,7 +464,6 @@ class Agent:
         ret_msg = wq.send_msg_to_agent(WazuhQueue.HC_FORCE_RECONNECT, self.id)
 
         return ret_msg
-
 
     def remove(self, backup=False, purge=False, use_only_authd=False):
         """Delete the agent.
@@ -918,12 +917,11 @@ class Agent:
     def get_agent_os_name(self):
         """Returns a string with an agent's os name
         """
-        query = WazuhDBQueryAgents(select=['os.name'], filters={'id': [self.id]})
-
-        try:
-            return query.run()['items'][0]['os'].get('name', 'null')
-        except KeyError:
-            return 'null'
+        with WazuhDBQueryAgents(select=['os.name'], filters={'id': [self.id]}) as db_query:
+            try:
+                return db_query.run()['items'][0]['os'].get('name', 'null')
+            except KeyError:
+                return 'null'
 
     @staticmethod
     def get_agents_overview(offset=0, limit=common.database_limit, sort=None, search=None, select=None,
@@ -953,9 +951,9 @@ class Agent:
         """
         pfilters = get_rbac_filters(system_resources=get_agents_info(), permitted_resources=filters.pop('id'),
                                     filters=filters) if filters and 'id' in filters else {'filters': filters}
-        db_query = WazuhDBQueryAgents(offset=offset, limit=limit, sort=sort, search=search, select=select,
-                                      query=q, **pfilters)
-        data = db_query.run()
+        with WazuhDBQueryAgents(offset=offset, limit=limit, sort=sort, search=search, select=select,
+                                query=q, **pfilters) as db_query:
+            data = db_query.run()
 
         return data
 
