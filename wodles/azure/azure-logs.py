@@ -243,6 +243,9 @@ def get_analytic(date, last_time_list, url, log_headers):
 	logging.info("Log Analytics: Sending a request to the Log Analytics API.")
 
 	try:
+
+
+        
 		query_md5 = hashlib.md5(la_format_query.encode()).hexdigest()
 		# Differentiates the first execution of the script from the rest of the executions.
 		if date != "0":
