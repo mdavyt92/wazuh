@@ -196,8 +196,8 @@ CHECK_CONFIG_COMMAND = 'check-manager-configuration'
 RESTART_WAZUH_COMMAND = 'restart-wazuh'
 
 # User and group name
-USER_NAME = 'ejemplo'
-GROUP_NAME = 'ejemplo'
+USER_NAME = 'wazuh'
+GROUP_NAME = 'wazuh'
 
 
 def wazuh_uid():
