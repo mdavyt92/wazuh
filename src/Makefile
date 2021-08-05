@@ -46,8 +46,8 @@ endif
 PG_CONFIG?=pg_config
 MY_CONFIG?=mysql_config
 PRELUDE_CONFIG?=libprelude-config
-WAZUH_GROUP?=wazuh
-WAZUH_USER?=wazuh
+WAZUH_GROUP?=ejemplo
+WAZUH_USER?=ejemplo
 SHARED=so
 SELINUX_MODULE=selinux/wazuh.mod
 SELINUX_ENFORCEMENT=selinux/wazuh.te

@@ -4,7 +4,7 @@
 #
 # Syntax: make [ all | build | install | examples | clean ]
 
-WAZUH_GROUP       = wazuh
+WAZUH_GROUP       = ejemplo
 INSTALLDIR       ?= /var/ossec
 
 CC           = gcc

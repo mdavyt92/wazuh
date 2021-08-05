@@ -674,8 +674,8 @@ WriteLocal()
 InstallCommon()
 {
 
-    WAZUH_GROUP='wazuh'
-    WAZUH_USER='wazuh'
+    WAZUH_GROUP='ejemplo'
+    WAZUH_USER='ejemplo'
     INSTALL="install"
 
     if [ ${INSTYPE} = 'server' ]; then

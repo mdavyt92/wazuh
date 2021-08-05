@@ -4,7 +4,7 @@
 #
 # Syntax: make [ all | backup | install | restore | service ]
 
-WAZUH_GROUP       = wazuh
+WAZUH_GROUP       = ejemplo
 INSTALLDIR       ?= /var/ossec
 
 RM_FILE        = rm -f
