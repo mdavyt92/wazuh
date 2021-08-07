@@ -161,7 +161,7 @@ void start_agent(int is_startup)
         // Try to enroll and extra attempt
 
         if (agt->enrollment_cfg && agt->enrollment_cfg->enabled) {
-            if (agent_ping_to_server(current_server_id)) {
+            if (1) {
                 agt->enrollment_cfg->key = keys.keyentries[0]->key;
                 if (try_enroll_to_server(agt->server[current_server_id].rip) == 0) {
                     if (agent_handshake_to_server(current_server_id, is_startup)) {
