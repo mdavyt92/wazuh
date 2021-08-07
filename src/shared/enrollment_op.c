@@ -105,7 +105,6 @@ w_enrollment_ctx * w_enrollment_init(w_enrollment_target *target, w_enrollment_c
     cfg->ssl = NULL;
     cfg->allow_localhost = 1;
     cfg->delay_after_enrollment = 20;
-    cfg->key = keys.keyentries[0]->key;
 
     return cfg;
 }
@@ -290,7 +289,7 @@ static int w_enrollment_send_message(w_enrollment_ctx *cfg) {
 
     // Concat agent's key
     char temp_buf[128];
-    snprintf(temp_buf, 128, " H:%s", keys.keyentries[0]->key);
+    snprintf(temp_buf, 128, " H:%s", cfg->key);
     strcat(buf,temp_buf);
 
     /* Append new line character */
