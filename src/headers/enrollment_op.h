@@ -69,6 +69,7 @@ typedef struct _enrollment_ctx {
     unsigned int enabled:1;                 /**> enabled / disables auto enrollment */
     unsigned int allow_localhost:1;         /**> 1 by default if this flag is in 0 using agent_name "localhost" will not be allowed */
     unsigned int delay_after_enrollment:30; /**> 20 by default, number of seconds to wait for enrollment */
+    char *key;
 } w_enrollment_ctx;
 
 /**

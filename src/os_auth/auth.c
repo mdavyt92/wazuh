@@ -58,6 +58,7 @@ void add_remove(const keyentry *entry) {
 
 w_err_t w_auth_parse_data(const char* buf, char *response,const char *authpass, char *ip, char **agentname, char **groups){
 
+    mdebug2("This is the message received: %s", buf);
     bool parseok = FALSE;
     /* Checking for shared password authentication. */
     if(authpass) {

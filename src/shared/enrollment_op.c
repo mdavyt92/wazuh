@@ -11,6 +11,8 @@
 #include "os_auth/auth.h"
 #include "os_net/os_net.h"
 #include "shared.h"
+#include "string_op.h"
+#include <stdio.h>
 
 #ifdef WAZUH_UNIT_TESTING
     /* Remove static qualifier when unit testing */
@@ -103,6 +105,8 @@ w_enrollment_ctx * w_enrollment_init(w_enrollment_target *target, w_enrollment_c
     cfg->ssl = NULL;
     cfg->allow_localhost = 1;
     cfg->delay_after_enrollment = 20;
+    cfg->key = keys.keyentries[0]->key;
+
     return cfg;
 }
 
@@ -283,6 +287,11 @@ static int w_enrollment_send_message(w_enrollment_ctx *cfg) {
             os_free(lhostname);
         return -1;
     }
+
+    // Concat agent's key
+    char temp_buf[128];
+    snprintf(temp_buf, 128, " H:%s", keys.keyentries[0]->key);
+    strcat(buf,temp_buf);
 
     /* Append new line character */
     strcat(buf,"\n");
