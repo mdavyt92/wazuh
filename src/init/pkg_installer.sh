@@ -23,6 +23,8 @@ FOLDERS_TO_BACKUP+=(${WAZUH_HOME}/lib)
 FOLDERS_TO_BACKUP+=(${WAZUH_HOME}/queue)
 [ -d "${WAZUH_HOME}/ruleset" ] && FOLDERS_TO_BACKUP+=(${WAZUH_HOME}/ruleset)
 [ -d "${WAZUH_HOME}/wodles" ] && FOLDERS_TO_BACKUP+=(${WAZUH_HOME}/wodles)
+[ -d "${WAZUH_HOME}/logs/ossec" ] && FOLDERS_TO_BACKUP+=(${WAZUH_HOME}/logs/ossec)
+[ -d "${WAZUH_HOME}/var/selinux" ] && FOLDERS_TO_BACKUP+=(${WAZUH_HOME}/var/selinux)
 
 for dir in "${FOLDERS_TO_BACKUP[@]}"; do
     mkdir -p "${TMP_DIR_BACKUP}${dir}"
@@ -132,6 +134,9 @@ else
     for dir in ${FOLDERS_TO_BACKUP[@]}; do
         rm -rf ${dir} >>${WAZUH_HOME}/logs/upgrade.log 2>&1
     done
+
+    # Cleaning for old versions
+    [ -d "${WAZUH_HOME}/ruleset" ] && rm -rf ${WAZUH_HOME}/ruleset
 
     # Restore backup
     echo "$(date +"%Y/%m/%d %H:%M:%S") - Restoring backup...."
